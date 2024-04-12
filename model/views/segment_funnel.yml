@@ -1,0 +1,13 @@
+views:
+  - name: segment_funnel
+    cubes:
+      - join_path: ab_users_reactivation
+        includes:
+          - name: user_id
+            alias: userId
+      - join_path: ab_users_reactivation.deals_funnel
+        includes:
+          - time
+          - step
+          - conversions
+          - conversionsPercent
