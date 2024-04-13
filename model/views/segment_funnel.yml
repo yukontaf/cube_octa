@@ -7,6 +7,8 @@ views:
             alias: userId
       - join_path: ab_users_reactivation.deals_funnel
         includes:
+          - ab_users
+          - filter_users
           - time
           - step
           - conversions
