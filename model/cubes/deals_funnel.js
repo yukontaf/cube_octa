@@ -5,7 +5,7 @@ cube("deals_funnel", {
     joins: {
       trading_real_raw: {
         relationship: "belongsTo",
-        sql: `${CUBE}.user_id = ${trading_real_raw}.user_id AND ${trading_real_raw}.symbol_name = 'XAUUSD' and timestamp between 2024-04-01 and 2024-04-10`,
+        sql: `${CUBE}.user_id = ${trading_real_raw}.user_id AND ${trading_real_raw}.symbol_name = 'XAUUSD'`,
       },
     },
     userId: {

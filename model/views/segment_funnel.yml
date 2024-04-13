@@ -9,6 +9,7 @@ views:
         includes:
           - ab_users
           - filter_users
+          - pushes
           - time
           - step
           - conversions
