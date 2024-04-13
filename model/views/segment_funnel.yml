@@ -14,3 +14,19 @@ views:
           - step
           - conversions
           - conversionsPercent
+
+  - name: event_stream_filter
+    cubes:
+      - join_path: event_stream
+        includes:
+          - name: user_id
+            alias: userId
+      - join_path: ab_users_reactivation.event_stream
+        includes:
+          - ab_users
+          - filter_users
+          - pushes
+          - time
+          - step
+          - conversions
+          - conversionsPercent

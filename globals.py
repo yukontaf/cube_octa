@@ -1,14 +1,12 @@
-from cube import TemplateContext
 from cube_dbt import Dbt
 
-dbt = Dbt.from_file('./manifest.json')
+url = 'https://raw.githubusercontent.com/yukontaf/cube_octa/main/manifest.json'
 
-template = TemplateContext()
-
-@template.function('dbt_models')
-def dbt_models():
-  return dbt.models
-
-@template.function('dbt_model')
-def dbt_model(name):
-  return dbt.model(name)
+dbt = (
+  Dbt
+  .from_url(url)
+  .filter(
+    paths=['/model/cubes'],
+    names=['event_stream']
+  )
+)
