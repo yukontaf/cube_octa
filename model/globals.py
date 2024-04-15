@@ -2,11 +2,12 @@ from cube_dbt import Dbt
 
 from cube import TemplateContext
 
-url = 'https://raw.githubusercontent.com/yukontaf/cube_octa/main/manifest.json'
+url = 'https://raw.githubusercontent.com/yukontaf/dbt_octafx/main/target/manifest.json'
 
 dbt = (
   Dbt
   .from_url(url)
+  .filter(paths=['funnels/'])
 )
 
 template = TemplateContext()
