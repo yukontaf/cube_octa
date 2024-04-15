@@ -4,9 +4,9 @@ cubes:
  
     dimensions:
       {% for column in model.columns %}
-      - name: {{ column.name }}
+      - name: "{{ column.name }}"
         sql: "{{ column.sql }}"
-        type: {{ column.type }}
+        type: "{{ column.type }}"
         meta:
           source: dbt
       {% endfor %}
