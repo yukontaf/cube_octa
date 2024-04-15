@@ -1,0 +1,11 @@
+{% set model = dbt_model('stg_deals') %}
+
+cubes:
+  - {{ model.as_cube() }}
+
+    dimensions:
+      {{ model.as_dimensions() }}
+
+    measures:
+      - name: count
+        type: count

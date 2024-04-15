@@ -1,2 +1,6 @@
 cubes:
-  - { { model.as_cube() } }
+  - {{ model.as_cube() }}
+
+    dimensions:
+      {{ model.as_dimensions() }}
+  
