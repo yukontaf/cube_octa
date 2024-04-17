@@ -1,15 +1,15 @@
-[0m05:14:04.207908 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1216b4210>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x120e70810>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x12171bf90>]}
+[0m23:39:56.824364 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108016710>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107fca4d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108057f10>]}
 
 
-============================== 05:14:04.210500 | f74c8e12-39f2-48cd-9576-9bb33ae5d9b3 ==============================
-[0m05:14:04.210500 [info ] [MainThread]: Running with dbt=1.7.10
-[0m05:14:04.210970 [debug] [MainThread]: running dbt with arguments {'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'invocation_command': 'dbt compile', 'log_format': 'default', 'introspect': 'True', 'fail_fast': 'False', 'indirect_selection': 'eager', 'target_path': 'None', 'cache_selected_only': 'False', 'profiles_dir': '/Users/gsokolov/.dbt', 'version_check': 'True', 'debug': 'False', 'log_cache_events': 'False', 'log_path': 'logs', 'use_colors': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'quiet': 'False', 'no_print': 'None', 'use_experimental_parser': 'False', 'printer_width': '80', 'warn_error': 'None', 'write_json': 'True', 'static_parser': 'True'}
-[0m05:14:04.211977 [error] [MainThread]: Encountered an error:
+============================== 23:39:56.830262 | a9a8f88e-0be9-4bc0-a0c3-1fd25f2145c6 ==============================
+[0m23:39:56.830262 [info ] [MainThread]: Running with dbt=1.7.10
+[0m23:39:56.830712 [debug] [MainThread]: running dbt with arguments {'quiet': 'False', 'target_path': 'None', 'partial_parse': 'True', 'use_experimental_parser': 'False', 'printer_width': '80', 'static_parser': 'True', 'log_format': 'default', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'use_colors': 'True', 'profiles_dir': '/Users/gsokolov/.dbt', 'no_print': 'None', 'log_path': 'logs', 'debug': 'False', 'invocation_command': 'dbt build --project-dir=/Users/gsokolov/Library/CloudStorage/Dropbox/cube_octa --write-json --partial-parse --select funnels', 'indirect_selection': 'eager', 'send_anonymous_usage_stats': 'True', 'write_json': 'True', 'warn_error': 'None', 'log_cache_events': 'False', 'cache_selected_only': 'False', 'version_check': 'True', 'fail_fast': 'False', 'introspect': 'True'}
+[0m23:39:56.831227 [error] [MainThread]: Encountered an error:
 Runtime Error
-  No dbt_project.yml found at expected path /dbt_project.yml
+  No dbt_project.yml found at expected path /Users/gsokolov/Library/CloudStorage/Dropbox/cube_octa/dbt_project.yml
   Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
   
-[0m05:14:04.214962 [debug] [MainThread]: Resource report: {"command_name": "compile", "command_wall_clock_time": 0.0550445, "process_user_time": 1.007366, "process_kernel_time": 0.192739, "process_mem_max_rss": "117293056", "command_success": false, "process_in_blocks": "0", "process_out_blocks": "0"}
-[0m05:14:04.215876 [debug] [MainThread]: Command `dbt compile` failed at 05:14:04.215758 after 0.06 seconds
-[0m05:14:04.216167 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x121698d10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x12169ae50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x102fa4110>]}
-[0m05:14:04.216431 [debug] [MainThread]: Flushing usage events
+[0m23:39:56.832553 [debug] [MainThread]: Resource report: {"command_name": "build", "command_wall_clock_time": 0.048984, "process_user_time": 0.921751, "process_kernel_time": 0.156354, "process_mem_max_rss": "117456896", "command_success": false, "process_in_blocks": "0", "process_out_blocks": "0"}
+[0m23:39:56.833703 [debug] [MainThread]: Command `dbt build` failed at 23:39:56.833606 after 0.05 seconds
+[0m23:39:56.833986 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107fd5310>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108068410>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108068590>]}
+[0m23:39:56.834223 [debug] [MainThread]: Flushing usage events

@@ -1,3 +1,2 @@
-from cube import config
-
-config.schema_path = 'model'
+# Databricks notebook source
+from cube import config, file_repository

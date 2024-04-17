@@ -1,0 +1,14 @@
+{% set model = dbt_model('funnel_bloomreach_events') %}
+ 
+cubes:
+  - {{ model.as_cube() }}
+ 
+    dimensions:
+      {{ model.as_dimensions() }}
+ 
+    # Model-specific measures
+    measures:
+      - name: count
+        type: count
+
+ 

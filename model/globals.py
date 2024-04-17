@@ -1,3 +1,4 @@
+# Databricks notebook source
 from cube_dbt import Dbt
 
 from cube import TemplateContext
@@ -10,6 +11,8 @@ dbt = (
   .filter(paths=['funnels/'])
 )
 
+
+
 template = TemplateContext()
 
 @template.function('dbt_models')
@@ -21,4 +24,3 @@ def dbt_models():
 def dbt_model(name):
   model = dbt.model(name)
   return model
-

@@ -3,7 +3,7 @@ cube("ab_users_reactivation", {
 
   segments: {
     filter_users: {
-      sql: `${CUBE}.campaign_id = '65733b51df03a1daadeb772d' AND ${CUBE}.action_id = 443`,
+      sql: `${CUBE}.campaign_id = '65733b51df03a1daadeb772d' AND ${CUBE}.action_id = 437`,
     },
   },
 

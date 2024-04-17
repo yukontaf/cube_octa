@@ -1,0 +1,21 @@
+{% set model = dbt_model('event_stream') %}
+ 
+cubes:
+  - {{ model.as_cube() }}
+ 
+    dimensions:
+      {{ model.as_dimensions() }}
+      - name: user_id
+        type: string
+        sql: user_id
+        primary_key: true
+ 
+    # Model-specific measures
+    measures:
+      - name: count
+        type: count
+
+    joins:
+      - name: ab_users_reactivation
+        sql: "{CUBE.user_id} = SAFE_CAST({ab_users_reactivation.user_id} as INT)"
+        relationship: many_to_one
