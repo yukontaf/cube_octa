@@ -25,14 +25,17 @@ cubes:
         type: count_distinct
         sql: user_id
   
-    pre_aggregations:
+    segments: 
       - name: failed_pushes
+        sql: "{CUBE.action_type} = 'mobile notification' AND ${CUBE.status} = 'failed'"  
+
+    pre_aggregations:
+      - name: failed_pushes_agg
         type: rollup
         dimensions:
-          - campaign_id
-          - action_id
-          - campaign_policy
-          - status
+          - CUBE.failed_pushes.campaign_id
+          - CUBE.failed_pushes.action_id
+          - CUBE.failed_pushes.campaign_policy
         time_dimension: timestamp
         granularity: day
         partition_granularity: week
