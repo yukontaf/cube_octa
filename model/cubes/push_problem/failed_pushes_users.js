@@ -81,6 +81,10 @@ cube(`failed_pushes_users`, {
       sql: `${int_bloomreach_events_enhanced.campaign_id}`,
       type: `string`
     },
+    campaignName: {
+      sql: `${int_bloomreach_events_enhanced.campaign_name}`,
+      type: `string`
+    },
     campaignPolicy: {
       sql: `${int_bloomreach_events_enhanced.campaign_policy}`,
       type: `string`
@@ -88,6 +92,10 @@ cube(`failed_pushes_users`, {
     timestamp: {
       sql: `${int_bloomreach_events_enhanced.timestamp}`,
       type: `time`
+    },
+    error: {
+      sql: `${int_bloomreach_events_enhanced.error}`,
+      type: `string`
     }
   }
 });
