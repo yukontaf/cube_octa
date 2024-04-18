@@ -33,9 +33,11 @@ cubes:
       - name: failed_pushes_agg
         type: rollup
         dimensions:
-          - CUBE.failed_pushes.campaign_id
-          - CUBE.failed_pushes.action_id
-          - CUBE.failed_pushes.campaign_policy
+          - campaign_id
+          - action_id
+          - campaign_policy
         time_dimension: timestamp
+        segments:
+          - CUBE.failed_pushes
         granularity: day
         partition_granularity: week
