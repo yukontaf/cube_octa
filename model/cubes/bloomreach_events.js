@@ -97,21 +97,4 @@ cube("bloomreach_events", {
       sql: `${CUBE}.properties.action_type = 'mobile notification'`,
     },
   },
-
-  // preAggregations: {
-  //   dailyUserCount: {
-  //     type: "rollup",
-  //     measureReferences: [countDistinctUsers],
-  //     timeDimensionReference: timestamp,
-  //     granularity: "day",
-  //     partitionGranularity: "week",
-  //     external: true,
-  //     buildRangeStart: {
-  //       sql: `SELECT DATE_SUB(DATE(CURRENT_TIMESTAMP()), INTERVAL 3 MONTH)`,
-  //     },
-  //     buildRangeEnd: {
-  //       sql: `SELECT DATE(CURRENT_TIMESTAMP())`,
-  //     },
-  //   },
-  // },
 });

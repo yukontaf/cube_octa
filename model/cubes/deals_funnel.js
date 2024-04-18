@@ -30,19 +30,4 @@ cube("deals_funnel", {
       },
     ],
   }),
-  // preAggregations: {
-  //   main: {
-  //     type: `originalSql`,
-  //   },
-  //   ab_stats_rollup: {
-  //     measures: [deals_funnel.conversions],
-  //     dimensions: [deals_funnel.step, ab_users_reactivation.user_id],
-  //     segments: [
-  //       ab_users_reactivation.ab_users,
-  //       ab_users_reactivation.filter_users,
-  //     ],
-  //     timeDimension: deals_funnel.time,
-  //     granularity: `day`,
-  //   },
-  // },
 });

@@ -6,10 +6,11 @@ cube(`fct_failed_pushes`, {
       ibe.campaign_id,
       ibe.error
     FROM
-      ${failed_pushes_users.sql()} AS fpu
-      JOIN ${int_bloomreach_events_enhanced.sql()} AS ibe ON fpu.user_id = ibe.user_id
+      ${CUBE.failed_pushes_users} AS fpu
+      JOIN ${CUBE.int_bloomreach_events_enhanced} AS ibe ON fpu.user_id = ibe.user_id
     WHERE
       ibe.action_type = 'mobile notification'
+        AND ibe.status = 'failed'
   `,
 
   joins: {
