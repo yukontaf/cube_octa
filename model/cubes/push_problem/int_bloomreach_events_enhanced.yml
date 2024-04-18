@@ -5,7 +5,10 @@ cubes:
 
     joins:
     - name: int_af_id
-      sql: "${CUBE.user_id} = ${int_af_id.user_id}"
+      sql: "{CUBE.user_id} = {int_af_id.user_id}"
+      relationship: one_to_one
+    - name: countries
+      sql: "{CUBE}.country_code = {countries.code}"
       relationship: one_to_one
 
     pre_aggregations:
@@ -30,7 +33,10 @@ cubes:
         primary_key: true
         type: number
       - name: appsflyer_id
-        sql: "${int_af_id.appsflyer_id}"
+        sql: "{int_af_id.appsflyer_id}"
+        type: string
+      - name: tier_name
+        sql: "{countries.tier_name}"
         type: string      
  
     measures:

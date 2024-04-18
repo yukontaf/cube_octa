@@ -1,0 +1,15 @@
+{% set model = dbt_model('countries') %}
+ 
+cubes:
+  - {{ model.as_cube() }}
+ 
+    dimensions:
+      {{ model.as_dimensions() }}
+      - name: country
+        type: string
+        sql: country
+        primary_key: true
+        
+    measures:
+      - name: count
+        type: count

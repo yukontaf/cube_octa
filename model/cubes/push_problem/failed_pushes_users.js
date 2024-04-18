@@ -60,11 +60,12 @@ cube(`failed_pushes_users`, {
   },
   measures: {
     count: {
-      type: `count`
+      type: `count`,
+      sql: `user_id`
     },
     distinct_users: {
-      type: `countDistinct`,
-      sql: `${userId}`
+      type: `count_distinct`,
+      sql: `user_id`
     }
   },
   dimensions: {
@@ -95,6 +96,14 @@ cube(`failed_pushes_users`, {
     },
     error: {
       sql: `${int_bloomreach_events_enhanced.error}`,
+      type: `string`
+    },
+    countryCode: {
+      sql: `${int_bloomreach_events_enhanced.country_code}`,
+      type: `string`
+    },
+    countryTier: {
+      sql: `${int_bloomreach_events_enhanced.tier_name}`,
       type: `string`
     }
   }
