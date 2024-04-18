@@ -25,3 +25,14 @@ cubes:
         type: count_distinct
         sql: user_id
   
+    pre_aggregations:
+      - name: failed_pushes
+        type: rollup
+        dimensions:
+          - campaign_id
+          - action_id
+          - campaign_policy
+          - status
+        time_dimension: timestamp
+        granularity: day
+        partition_granularity: week

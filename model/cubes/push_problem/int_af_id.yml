@@ -16,4 +16,7 @@ cubes:
       - name: distinct_users
         type: count_distinct
         sql: user_id
-    
+
+    pre_aggregations:
+      - name: af_ids
+        type: original_sql  

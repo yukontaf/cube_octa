@@ -35,7 +35,7 @@ cube(`failed_pushes_users`, {
           ]
         }
       }
-    }
+    },
   },
     joins: {
       appsflyer_uninstall_events_report: {
