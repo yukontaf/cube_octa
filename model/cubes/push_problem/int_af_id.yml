@@ -1,13 +1,8 @@
-{% set model = dbt_model('int_bloomreach_events_enhanced') %}
+{% set model = dbt_model('int_af_id') %}
  
 cubes:
   - {{ model.as_cube() }}
-
-    joins:
-    - name: int_af_id
-      sql: "{CUBE.user_id} = {int_af_id.user_id}"
-      relationship: one_to_one
-
+ 
     dimensions:
       {{ model.as_dimensions() }}
       - name: user_id
