@@ -3,7 +3,7 @@ from cube_dbt import Dbt
 
 from cube import TemplateContext
 
-url = 'https://www.dropbox.com/scl/fi/ymjilw010gyln1pijfh9i/manifest.json?rlkey=733hp3omgim6ovmj1ak9f9wun&dl=1'
+url = 'https://www.dropbox.com/scl/fi/x411upkqfx2kj73ylevzx/manifest.json?rlkey=jq55ehjoyc67i1yc1qldc7dfw&dl=1'
 
 dbt = Dbt.from_url(url)
 

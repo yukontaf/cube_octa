@@ -1,0 +1,12 @@
+{% set model = dbt_model('int_bloomreach_events_enhanced') %}
+ 
+cubes:
+  - {{ model.as_cube() }}
+ 
+    dimensions:
+      {{ model.as_dimensions() }}
+ 
+    measures:
+      - name: count
+        type: count
+    

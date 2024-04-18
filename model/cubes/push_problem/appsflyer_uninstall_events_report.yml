@@ -13,5 +13,3 @@ cubes:
     measures:
       - name: count
         type: count
-      - name: count_distinct
-        type: count_distinct
