@@ -1,0 +1,17 @@
+{% set model = dbt_model('appsflyer_uninstall_events_report') %}
+ 
+cubes:
+  - {{ model.as_cube() }}
+ 
+    dimensions:
+      {{ model.as_dimensions() }}
+      - name: user_id
+        type: string
+        sql: user_id
+        primary_key: true
+ 
+    measures:
+      - name: count
+        type: count
+      - name: count_distinct
+        type: count_distinct
