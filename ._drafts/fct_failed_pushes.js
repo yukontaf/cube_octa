@@ -8,27 +8,11 @@ cube(`fct_failed_pushes`, {
       ibe.error
     FROM
       ${CUBE.failed_pushes_users.sql()} AS fpu
-      JOIN ${CUBE.int_bloomreach_events_enhanced.sql()} AS ibe ON fpu.user_id = ibe.user_id
+      LEFT JOIN ${CUBE.int_bloomreach_events_enhanced.sql()} AS ibe ON fpu.user_id = ibe.user_id
     WHERE
       ibe.action_type = 'mobile notification'
           AND ibe.status = 'failed'`
     ,
-    preAggregations: {
-        fctPushesOriginalSql: {
-            type: `originalSql`
-        }
-    },
-  joins: {
-    failed_pushes_users: {
-      sql: `${CUBE}.user_id = ${failed_pushes_users}.user_id`,
-      relationship: `belongsTo`
-    },
-    int_bloomreach_events_enhanced: {
-      sql: `${CUBE}.user_id = ${int_bloomreach_events_enhanced}.user_id`,
-      relationship: `belongsTo`
-    }
-  },
-
   measures: {
     count: {
       type: `count`,

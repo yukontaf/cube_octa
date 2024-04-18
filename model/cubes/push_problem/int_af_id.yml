@@ -2,7 +2,7 @@
  
 cubes:
   - {{ model.as_cube() }}
- 
+    
     dimensions:
       {{ model.as_dimensions() }}
       - name: user_id

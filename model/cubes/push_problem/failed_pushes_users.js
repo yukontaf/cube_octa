@@ -19,9 +19,9 @@ cube(`failed_pushes_users`, {
       1,
       2 `,
   preAggregations: {
-    originalSql: {
-      type: `originalSql`
-    },
+    // originalSql: {
+    //   type: `originalSql`
+    // },
     failed_users: {
       dimensions: [
         failed_pushes_users.appsflyerId,
@@ -37,12 +37,16 @@ cube(`failed_pushes_users`, {
       }
     },
   },
-    joins: {
-      appsflyer_uninstall_events_report: {
-        relationship: `belongsTo`,
-        sql: `${CUBE}.appsflyer_id = ${appsflyer_uninstall_events_report}.appsflyer_id`
-      },
+  joins: {
+    int_bloomreach_events_enhanced: {
+      relationship: `one_to_many`,
+      sql: `${CUBE}.user_id = ${int_bloomreach_events_enhanced}.user_id`,
     },
+    appsflyer_uninstall_events_report: {
+      relationship: `one_to_many`,
+      sql: `${CUBE}.appsflyerId = ${appsflyer_uninstall_events_report}.appsflyer_id`
+    },
+  },
     measures: {
       count: {
         type: `count`
@@ -57,6 +61,14 @@ cube(`failed_pushes_users`, {
       appsflyerId: {
         sql: `appsflyer_id`,
         type: `string`,
+      },
+      campaignId: {
+        sql: `${int_bloomreach_events_enhanced.campaign_id}`,
+        type: `string`
+      },
+      campaignPolicy: {
+        sql: `${int_bloomreach_events_enhanced.campaign_policy}`,
+        type: `string`
       }
-  },
+      }
 });
