@@ -2,6 +2,7 @@ cube(`fct_failed_pushes`, {
   sql: `
     SELECT
       fpu.user_id,
+      fpu.appsflyer_id,
       ibe.timestamp,
       ibe.campaign_id,
       ibe.error
@@ -10,8 +11,8 @@ cube(`fct_failed_pushes`, {
       JOIN ${CUBE.int_bloomreach_events_enhanced} AS ibe ON fpu.user_id = ibe.user_id
     WHERE
       ibe.action_type = 'mobile notification'
-        AND ibe.status = 'failed'
-  `,
+          AND ibe.status = 'failed'`
+    ,
 
   joins: {
     failed_pushes_users: {
@@ -35,9 +36,14 @@ cube(`fct_failed_pushes`, {
   dimensions: {
     userId: {
       sql: `user_id`,
-      type: `string`,
+      type: `number`,
       primaryKey: true
-    },
+      },
+      appsflyerId: {
+        sql: `appsflyer_id`,
+        type: `string`,
+        primaryKey: true
+      },
     timestamp: {
       sql: `timestamp`,
       type: `time`
@@ -46,9 +52,18 @@ cube(`fct_failed_pushes`, {
       sql: `action_type`,
       type: `string`
     },
-    eventType: {
-      sql: `event_type`,
+    error: {
+      sql: `error`,
       type: `string`
     }
-  }
+    },
+    preAggregations: {
+        mainRollup: {
+            measures: [CUBE.count],
+            dimensions: [CUBE.userId, CUBE.appsflyerId, CUBE.timestamp],
+            time_dimension: CUBE.timestamp,
+            granularity: `day`,
+            partitionGranularity: `week`,
+          },
+      },
 });
