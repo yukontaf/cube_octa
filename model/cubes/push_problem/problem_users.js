@@ -1,38 +1,39 @@
-cube(`BloomreachFailedMobileNotifications`, {
-  sql: `
+cube(`failed_pushes_users`, {
+    sql: `
     SELECT
-      int_bloomreach_events_enhanced.user_id,
-      int_bloomreach_events_enhanced.timestamp
+      e.user_id,
+      a.appsflyer_id
     FROM
-      int_bloomreach_events_enhanced
+      ${int_bloomreach_events_enhanced.sql()} e
+      INNER JOIN ${int_af_id.sql()} a
+      ON e.user_id = a.user_id
     WHERE
-      int_bloomreach_events_enhanced.timestamp > '2024-01-01T00:00:00.000'
-      AND int_bloomreach_events_enhanced.timestamp < '2024-12-31T23:59:59.999'
+      timestamp > '2024-01-01T00:00:00.000'
+      AND timestamp < '2024-12-31T23:59:59.999'
       AND (
-        int_bloomreach_events_enhanced.action_type = 'mobile notification'
+        action_type = 'mobile notification'
       )
-      AND (int_bloomreach_events_enhanced.status = 'failed')
+      AND (status = 'failed')
+      AND (appsflyer_id is not null)
     GROUP BY
       1,
       2 `,
 
-  measures: {
-    count: {
-      type: `count`,
-      drillMembers: [userId, timestamp]
-    }
-  },
-
-  dimensions: {
-    userId: {
-      sql: `user_id`,
-      type: `number`,
-      primaryKey: true
+    measures: {
+        count: {
+            type: `count`
+        }
     },
 
-    timestamp: {
-      sql: `timestamp`,
-      type: `time`
+    dimensions: {
+        userId: {
+            sql: `user_id`,
+            type: `number`,
+            primaryKey: true
+        },
+        appsflyer_id: {
+            sql: `appsflyer_id`,
+            type: `string`,
+        }
     }
-  }
 });
