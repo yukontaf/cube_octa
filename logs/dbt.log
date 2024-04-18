@@ -28,3 +28,18 @@ Runtime Error
 [0m05:38:57.331767 [debug] [MainThread]: Command `dbt build` failed at 05:38:57.331687 after 0.05 seconds
 [0m05:38:57.332006 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x104c9d890>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x104d07d90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10091c2d0>]}
 [0m05:38:57.332241 [debug] [MainThread]: Flushing usage events
+[0m19:16:44.468251 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108302910>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10b3a8d60>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10b3fc8b0>]}
+
+
+============================== 19:16:44.472779 | 34cb53fa-c875-4e4d-92cb-027ff09e3c90 ==============================
+[0m19:16:44.472779 [info ] [MainThread]: Running with dbt=1.7.12
+[0m19:16:44.473177 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/Users/gsokolov/.dbt', 'version_check': 'True', 'fail_fast': 'False', 'log_path': 'logs', 'warn_error': 'None', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'log_format': 'default', 'invocation_command': 'dbt compile --project-dir=/Users/gsokolov/Library/CloudStorage/Dropbox/cube_octa --select push_problem', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m19:16:44.473558 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path /Users/gsokolov/Library/CloudStorage/Dropbox/cube_octa/dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m19:16:44.475168 [debug] [MainThread]: Resource report: {"command_name": "compile", "command_wall_clock_time": 0.04303333, "process_user_time": 1.010108, "process_kernel_time": 0.123908, "process_mem_max_rss": "100073472", "command_success": false, "process_in_blocks": "0", "process_out_blocks": "0"}
+[0m19:16:44.475590 [debug] [MainThread]: Command `dbt compile` failed at 19:16:44.475497 after 0.04 seconds
+[0m19:16:44.475846 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108302910>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10b3fc9a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10b3e9ca0>]}
+[0m19:16:44.476092 [debug] [MainThread]: Flushing usage events
