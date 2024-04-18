@@ -8,6 +8,21 @@ cubes:
       sql: "${CUBE.user_id} = ${int_af_id.user_id}"
       relationship: one_to_one
 
+    pre_aggregations:
+      - name: failed_pushes_agg
+        segments:
+          - CUBE.failed_pushes
+        measures:
+          - CUBE.count
+          - CUBE.distinct_users
+        dimensions:
+          - CUBE.campaign_id
+          - CUBE.action_id
+          - CUBE.campaign_policy
+        time_dimension: CUBE.timestamp
+        granularity: day
+        partition_granularity: week
+
     dimensions:
       {{ model.as_dimensions() }}
       - name: user_id
@@ -15,29 +30,16 @@ cubes:
         primary_key: true
         type: number
       - name: appsflyer_id
-        sql: ${int_af_id.appsflyer_id}
+        sql: "${int_af_id.appsflyer_id}"
         type: string      
  
     measures:
       - name: count
         type: count
       - name: distinct_users
+        sql:  "{CUBE}.user_id"      
         type: count_distinct
-        sql: "{CUBE}.user_id"
-  
+
     segments: 
       - name: failed_pushes
         sql: "{CUBE}.action_type = 'mobile notification' AND {CUBE}.status = 'failed'"  
-
-    pre_aggregations:
-      - name: failed_pushes_agg
-        type: rollup
-        dimensions:
-          - campaign_id
-          - action_id
-          - campaign_policy
-        time_dimension: timestamp
-        segments:
-          - CUBE.failed_pushes
-        granularity: day
-        partition_granularity: week
