@@ -27,7 +27,7 @@ cubes:
   
     segments: 
       - name: failed_pushes
-        sql: "{CUBE.action_type} = 'mobile notification' AND ${CUBE.status} = 'failed'"  
+        sql: "${CUBE.action_type} = 'mobile notification' AND ${CUBE.status} = 'failed'"  
 
     pre_aggregations:
       - name: failed_pushes_agg
