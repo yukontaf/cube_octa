@@ -23,7 +23,15 @@ cubes:
         type: string
       - name: tier_name
         sql: "{countries.tier_name}"
-        type: string      
+        type: string
+      - name: if_failed
+        type: string
+        case:
+          when:
+            - sql: "{CUBE}.status = 'failed'"
+              label: "1"
+            - sql: "{CUBE}.status != 'failed'"
+              label: "0"
  
     measures:
       - name: event_cnt
@@ -33,7 +41,12 @@ cubes:
       - name: distinct_users
         sql:  "{CUBE}.user_id"      
         type: count_distinct
+      - name: avg_failed
+        type: avg
+        sql: "cast({CUBE.if_failed} as int)*100"
 
-    segments: 
+    segments:
+      - name: pushes
+        sql: "{CUBE}.action_type = 'mobile notification'" 
       - name: failed_pushes
         sql: "{CUBE}.action_type = 'mobile notification' AND {CUBE}.status = 'failed'"  
