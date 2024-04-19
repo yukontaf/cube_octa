@@ -26,8 +26,7 @@ cubes:
         type: string      
  
     measures:
-      - name: count
-        sql: "count(*)"
+      - name: event_cnt
         type: count
       - name: distinct_users
         sql:  "{CUBE}.user_id"      
