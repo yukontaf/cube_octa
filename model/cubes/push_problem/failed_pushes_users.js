@@ -18,32 +18,6 @@ cube(`failed_pushes_users`, {
     GROUP BY
       1,
       2 `,
-  preAggregations: {
-    failed_users: {
-      dimensions: [
-        CUBE.appsflyerId,
-        CUBE.userId
-      ],
-      refreshKey:
-        {every: "500 week"}
-    },
-    failed_pushes: {
-      type: `rollup`,
-      dimensions: [
-        CUBE.campaignId,
-        CUBE.campaignPolicy,
-      ],
-      measures: [
-        CUBE.count,
-        CUBE.distinct_users
-      ],
-      timeDimension: CUBE.timestamp,
-      granularity: `day`,
-      partitionGranularity: `week`,
-      refreshKey:
-      {every: "500 week"}
-    }
-  },
   joins: {
     int_bloomreach_events_enhanced: {
       relationship: `one_to_many`,
@@ -101,6 +75,6 @@ cube(`failed_pushes_users`, {
     countryTier: {
       sql: `${int_bloomreach_events_enhanced.tier_name}`,
       type: `string`
-    }
+    },
   }
 });

@@ -1,0 +1,46 @@
+    pre_aggregations:
+      - name: failed_pushes_agg
+        segments:
+          - CUBE.failed_pushes
+        measures:
+          - CUBE.count
+          - CUBE.distinct_users
+        dimensions:
+          - CUBE.campaign_id
+          - CUBE.action_id
+          - CUBE.campaign_policy
+        time_dimension: CUBE.timestamp
+        granularity: day
+        partition_granularity: week
+        refresh_key:
+          every: 500 week
+
+
+
+
+ preAggregations: {
+    failed_users: {
+      dimensions: [
+        CUBE.appsflyerId,
+        CUBE.userId
+      ],
+      refreshKey:
+        {every: "500 week"}
+    },
+    failed_pushes: {
+      type: `rollup`,
+      dimensions: [
+        CUBE.campaignId,
+        CUBE.campaignPolicy,
+      ],
+      measures: [
+        CUBE.count,
+        CUBE.distinct_users
+      ],
+      timeDimension: CUBE.timestamp,
+      granularity: `day`,
+      partitionGranularity: `week`,
+      refreshKey:
+      {every: "500 week"}
+    }
+  },

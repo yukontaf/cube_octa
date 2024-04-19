@@ -11,22 +11,6 @@ cubes:
       sql: "{CUBE}.country_code = {countries.code}"
       relationship: one_to_one
 
-    pre_aggregations:
-      - name: failed_pushes_agg
-        segments:
-          - CUBE.failed_pushes
-        measures:
-          - CUBE.count
-          - CUBE.distinct_users
-        dimensions:
-          - CUBE.campaign_id
-          - CUBE.action_id
-          - CUBE.campaign_policy
-        time_dimension: CUBE.timestamp
-        granularity: day
-        partition_granularity: week
-        refresh_key:
-          every: 500 week
 
     dimensions:
       {{ model.as_dimensions() }}
@@ -43,6 +27,7 @@ cubes:
  
     measures:
       - name: count
+        sql: "count(*)"
         type: count
       - name: distinct_users
         sql:  "{CUBE}.user_id"      
