@@ -28,6 +28,8 @@ cubes:
     measures:
       - name: event_cnt
         type: count
+        filters:
+          - sql: "{CUBE}.status = 'failed'"
       - name: distinct_users
         sql:  "{CUBE}.user_id"      
         type: count_distinct
