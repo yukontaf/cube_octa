@@ -25,6 +25,8 @@ cubes:
         time_dimension: CUBE.timestamp
         granularity: day
         partition_granularity: week
+        refresh_key:
+          every: 500 week
 
     dimensions:
       {{ model.as_dimensions() }}

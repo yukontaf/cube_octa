@@ -23,7 +23,9 @@ cube(`failed_pushes_users`, {
       dimensions: [
         CUBE.appsflyerId,
         CUBE.userId
-      ]
+      ],
+      refreshKey:
+        {every: "500 week"}
     },
     failed_pushes: {
       type: `rollup`,
@@ -37,7 +39,9 @@ cube(`failed_pushes_users`, {
       ],
       timeDimension: CUBE.timestamp,
       granularity: `day`,
-      partitionGranularity: `week`
+      partitionGranularity: `week`,
+      refreshKey:
+      {every: "500 week"}
     }
   },
   joins: {
