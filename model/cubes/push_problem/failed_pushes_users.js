@@ -21,29 +21,21 @@ cube(`failed_pushes_users`, {
   preAggregations: {
     failed_users: {
       dimensions: [
-        failed_pushes_users.appsflyerId,
-        failed_pushes_users.userId
-      ],
-      indexes: {
-        indexName: {
-          columns: [
-            failed_pushes_users.userId,
-            failed_pushes_users.appsflyerId
-          ]
-        }
-      }
+        CUBE.appsflyerId,
+        CUBE.userId
+      ]
     },
     failed_pushes: {
       type: `rollup`,
       dimensions: [
-        failed_pushes_users.campaignId,
-        failed_pushes_users.campaignPolicy,
+        CUBE.campaignId,
+        CUBE.campaignPolicy,
       ],
       measures: [
-        failed_pushes_users.count,
-        failed_pushes_users.distinct_users
+        CUBE.count,
+        CUBE.distinct_users
       ],
-      timeDimension: failed_pushes_users.timestamp,
+      timeDimension: CUBE.timestamp,
       granularity: `day`,
       partitionGranularity: `week`
     }
