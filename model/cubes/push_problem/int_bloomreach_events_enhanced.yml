@@ -11,7 +11,19 @@ cubes:
       sql: "{CUBE}.country_code = {countries.code}"
       relationship: one_to_one
 
-
+    measures:
+      - name: event_cnt
+        type: count
+        drill_members:
+          - status
+          - error
+      - name: distinct_users
+        sql:  "{CUBE}.user_id"      
+        type: count_distinct
+      - name: avg_failed
+        type: avg
+        sql: "cast({CUBE.if_failed} as int)*100"
+        
     dimensions:
       {{ model.as_dimensions() }}
       - name: user_id
@@ -32,19 +44,6 @@ cubes:
               label: "1"
             - sql: "{CUBE}.status != 'failed'"
               label: "0"
- 
-    measures:
-      - name: event_cnt
-        type: count
-        drill_members:
-          - status
-          - error
-      - name: distinct_users
-        sql:  "{CUBE}.user_id"      
-        type: count_distinct
-      - name: avg_failed
-        type: avg
-        sql: "cast({CUBE.if_failed} as int)*100"
 
     segments:
       - name: pushes
