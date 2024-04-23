@@ -23,15 +23,19 @@ cubes:
       - name: avg_failed
         type: avg
         sql: "cast({CUBE.if_failed} as int)*100"
+
       - name: token_cnt
-        sql: "IF({CUBE.google_push_notification_id} IS NOT NULL, 1, 0)"
-        type: sum
+        sql: "{CUBE}.has_token"
+        type: count_distinct
         
     dimensions:
       {{ model.as_dimensions() }}
       - name: user_id
         sql: user_id
         primary_key: true
+        type: number
+      - name: has_token
+        sql: "IF({CUBE}.google_push_notification_id is not Null, user_id, 0)"
         type: number
       - name: google_push_notification_id
         sql:  "google_push_notification_id"
