@@ -25,7 +25,7 @@ cubes:
         sql: "cast({CUBE.if_failed} as int)*100"
 
       - name: token_cnt
-        sql: "{CUBE}.has_token"
+        sql: "if({CUBE}.has_token=True, user_id, NULL)"
         type: count_distinct
         
     dimensions:
@@ -34,9 +34,6 @@ cubes:
         sql: user_id
         primary_key: true
         type: number
-      - name: has_token
-        sql: "google_push_notification_id is not NULL"
-        type: boolean
       - name: google_push_notification_id
         sql:  "google_push_notification_id"
         type: string
@@ -44,6 +41,9 @@ cubes:
         sql: "{int_af_id.appsflyer_id}"
         type: string
         sub_query: true
+      - name: has_token
+        sql: "{CUBE}.google_push_notification_id is not NULL and {CUBE}.google_push_notification_id <> ''"
+        type: boolean
       - name: tier_name
         sql: "{countries.tier_name}"
         type: string
@@ -54,14 +54,6 @@ cubes:
             - sql: "{CUBE}.status = 'failed'"
               label: "1"
             - sql: "{CUBE}.status != 'failed'"
-              label: "0"
-      - name: has_token
-        type: string
-        case:
-          when:
-            - sql: "{token_cnt} > 0"
-              label: "1"
-            - sql: "{token_cnt} = 0"
               label: "0"
     segments:
       - name: pushes

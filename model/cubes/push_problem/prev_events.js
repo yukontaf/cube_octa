@@ -10,10 +10,6 @@ cube(`prev_events`, {
   `,
 
   measures: {
-    timedelta: {
-      type: `number`,
-      sql: `TIMESTAMP_DIFF(${CUBE}.timestamp, ${CUBE}.previous_timestamp, SECOND)`
-    },
     first_event: {
       sql: `timestamp`,
       type: `min`,
@@ -38,19 +34,22 @@ cube(`prev_events`, {
     },
     avg_delta: {
       type: `avg`,
-      sql: `${timedelta}`
+      sql: `${avg_user_delta}`
+    },
+    avg_user_delta: {
+      sql: `${timedelta}`,
+      type: `avg`
     }
   },
 
   dimensions: {
-    appsflyer_id: {
-      sql: `appsflyer_id`,
-      type: `string`,
-      primaryKey: true
-    },
     user_id: {
       sql: `user_id`,
       type: `string`
+    },
+    timedelta: {
+      type: `number`,
+      sql: `TIMESTAMP_DIFF(${CUBE}.timestamp, ${CUBE}.previous_timestamp, SECOND)`
     },
     status: {
       sql: `status`,
