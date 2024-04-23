@@ -27,6 +27,10 @@ cube(`failed_pushes_users`, {
       relationship: `one_to_many`,
       sql: `${CUBE}.appsflyerId = ${appsflyer_uninstall_events_report}.appsflyer_id`
     },
+    tokens: {
+      relationship: `one_to_many`,
+      sql: `${CUBE}.user_id = ${tokens}.user_id`,
+    }
   },
   measures: {
     count: {
@@ -36,6 +40,10 @@ cube(`failed_pushes_users`, {
     distinct_users: {
       type: `count_distinct`,
       sql: `user_id`
+    },
+    has_token: {
+      type: `boolean`,
+      sql: `${tokens.google_push_notification_id} is not null`
     }
   },
   dimensions: {

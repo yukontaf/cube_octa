@@ -10,6 +10,9 @@ cubes:
     - name: countries
       sql: "{CUBE}.country_code = {countries.code}"
       relationship: one_to_one
+    - name: tokens
+      sql: "{CUBE.user_id} = {tokens.user_id}"
+      relationship: one_to_one
 
     measures:
       - name: event_cnt
@@ -23,6 +26,9 @@ cubes:
       - name: avg_failed
         type: avg
         sql: "cast({CUBE.if_failed} as int)*100"
+      - name: has_token
+        type: boolean
+        sql: "IF({tokens.google_push_notification_id} IS NOT NULL, True, False)"
         
     dimensions:
       {{ model.as_dimensions() }}
