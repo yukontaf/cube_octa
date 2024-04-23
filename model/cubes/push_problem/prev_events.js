@@ -1,9 +1,9 @@
 cube(`prev_events`, {
   sql: `
     SELECT 
-      ${int_bloomreach_events_enhanced.appsflyer_id}, user_id, timestamp, status, campaign_name, action_id,
+      user_id, timestamp, status, campaign_name, action_id,
       LAG(status) OVER (PARTITION BY user_id ORDER BY timestamp) as previous_status,
-      LAG(event_id) OVER (PARTITION BY user_id ORDER BY timestamp) as previous_event_id,
+      LAG(campaign_name) OVER (PARTITION BY user_id ORDER BY timestamp) as previous_event_id,
       LAG(timestamp) OVER (PARTITION BY user_id ORDER BY timestamp) as previous_timestamp
     FROM 
       ${int_bloomreach_events_enhanced.sql()}
@@ -30,11 +30,11 @@ cube(`prev_events`, {
     },
     count: {
       type: `count`,
-      sql: `${CUBE}.appsflyer_id`
+      sql: `${CUBE}.user_id`
     },
     count_distinct: {
       type: `count_distinct`,
-      sql: `${CUBE}.appsflyer_id`
+      sql: `${CUBE}.user_id`
     },
     avg_delta: {
       type: `avg`,
