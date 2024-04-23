@@ -35,8 +35,8 @@ cubes:
         primary_key: true
         type: number
       - name: has_token
-        sql: "IF({CUBE}.google_push_notification_id is not Null, user_id, 0)"
-        type: number
+        sql: "google_push_notification_id is not NULL"
+        type: boolean
       - name: google_push_notification_id
         sql:  "google_push_notification_id"
         type: string
