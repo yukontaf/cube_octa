@@ -10,9 +10,6 @@ cubes:
     - name: countries
       sql: "{CUBE}.country_code = {countries.code}"
       relationship: one_to_one
-    - name: tokens
-      sql: "{CUBE.user_id} = {tokens.user_id}"
-      relationship: one_to_one
 
     measures:
       - name: event_cnt
@@ -26,9 +23,9 @@ cubes:
       - name: avg_failed
         type: avg
         sql: "cast({CUBE.if_failed} as int)*100"
-      - name: has_token
-        type: boolean
-        sql: "IF({tokens.google_push_notification_id} IS NOT NULL, True, False)"
+      - name: token_cnt
+        sql: "IF({CUBE.google_push_notification_id} IS NOT NULL, 1, 0)"
+        type: sum
         
     dimensions:
       {{ model.as_dimensions() }}
@@ -36,6 +33,9 @@ cubes:
         sql: user_id
         primary_key: true
         type: number
+      - name: google_push_notification_id
+        sql:  "google_push_notification_id"
+        type: string
       - name: appsflyer_id
         sql: "{int_af_id.appsflyer_id}"
         type: string
@@ -51,7 +51,6 @@ cubes:
               label: "1"
             - sql: "{CUBE}.status != 'failed'"
               label: "0"
-
     segments:
       - name: pushes
         sql: "{CUBE}.action_type = 'mobile notification'" 
