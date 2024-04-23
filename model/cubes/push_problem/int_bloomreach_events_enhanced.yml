@@ -68,6 +68,9 @@ cubes:
       - name: if_failed
         type: number
         sql: "case when {CUBE}.status = 'failed' then 1 else 0 end"
+      - name: campaign_id
+        sql: "campaign_id"
+        type: string
     segments:
       - name: pushes
         sql: "{CUBE}.action_type = 'mobile notification'" 
