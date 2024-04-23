@@ -58,7 +58,6 @@ cubes:
       - name: appsflyer_id
         sql: "{int_af_id.appsflyer_id}"
         type: string
-        sub_query: true
       - name: has_token
         sql: "{CUBE}.google_push_notification_id is not NULL and {CUBE}.google_push_notification_id <> ''"
         type: boolean
