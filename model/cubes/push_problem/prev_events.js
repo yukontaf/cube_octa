@@ -32,14 +32,15 @@ cube(`prev_events`, {
       type: `count_distinct`,
       sql: `${CUBE}.user_id`
     },
-    avg_delta: {
-      type: `avg`,
-      sql: `${CUBE}.avg_user_delta`
-    },
+
     avg_user_delta: {
-      sql: `${CUBE}.timedelta`,
+      sql: `${timedelta}`,
       type: `avg`
-    }
+    },
+    //   avg_delta: {
+    //   type: `avg`,
+    //   sql: `${avg_user_delta}`
+    // },
   },
 
   dimensions: {
