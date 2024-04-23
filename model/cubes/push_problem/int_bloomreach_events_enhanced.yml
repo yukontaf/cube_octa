@@ -17,6 +17,14 @@ cubes:
         drill_members:
           - status
           - error
+      - name: msg_cnt
+        type: count
+        sql: "message_id"
+        drill_members:
+          - status
+          - error
+          - campaign_name
+          - action_type
       - name: distinct_users
         sql:  "{CUBE}.user_id"      
         type: count_distinct
@@ -27,6 +35,13 @@ cubes:
       - name: token_cnt
         sql: "if({CUBE}.has_token=True, user_id, NULL)"
         type: count_distinct
+      - name: hour_cnt
+        sql: "EXTRACT(HOUR FROM timestamp)"
+        type: count
+      - name: failed_pct
+        sql: "100.0 * SUM(if_failed) / COUNT(*)"
+        type: number
+
         
     dimensions:
       {{ model.as_dimensions() }}
@@ -34,6 +49,9 @@ cubes:
         sql: user_id
         primary_key: true
         type: number
+      - name: event_hour
+        sql: "EXTRACT(HOUR FROM timestamp)"
+        type: string
       - name: google_push_notification_id
         sql:  "google_push_notification_id"
         type: string
