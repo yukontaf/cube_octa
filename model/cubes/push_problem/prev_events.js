@@ -34,10 +34,10 @@ cube(`prev_events`, {
     },
     avg_delta: {
       type: `avg`,
-      sql: `${avg_user_delta}`
+      sql: `${CUBE}.avg_user_delta`
     },
     avg_user_delta: {
-      sql: `${timedelta}`,
+      sql: `${CUBE}.timedelta`,
       type: `avg`
     }
   },
@@ -71,7 +71,7 @@ cube(`prev_events`, {
       sql: `previous_status`,
       type: `string`
     },
-    previousTimestamp: {
+    previous_timestamp: {
       sql: `previous_timestamp`,
       type: `time`
     }
