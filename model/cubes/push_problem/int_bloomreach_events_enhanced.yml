@@ -51,6 +51,14 @@ cubes:
               label: "1"
             - sql: "{CUBE}.status != 'failed'"
               label: "0"
+      - name: has_token
+        type: string
+        case:
+          when:
+            - sql: "{token_cnt} > 0"
+              label: "1"
+            - sql: "{token_cnt} = 0"
+              label: "0"
     segments:
       - name: pushes
         sql: "{CUBE}.action_type = 'mobile notification'" 
