@@ -33,6 +33,7 @@ cubes:
       - name: appsflyer_id
         sql: "{int_af_id.appsflyer_id}"
         type: string
+        sub_query: true
       - name: tier_name
         sql: "{countries.tier_name}"
         type: string
