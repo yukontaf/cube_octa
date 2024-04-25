@@ -30,7 +30,8 @@ cube(`failed_pushes_users`, {
     tokens: {
       relationship: `one_to_many`,
       sql: `${CUBE}.user_id = ${tokens}.user_id`,
-    }
+    },
+    
   },
   measures: {
     count: {

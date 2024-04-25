@@ -12,10 +12,6 @@ cube("ab_users_reactivation", {
       relationship: "hasMany",
       sql: `${CUBE}.user_id = ${bloomreach_events.user_id}`,
     },
-    deals_funnel: {
-      sql: `${CUBE}.user_id = ${deals_funnel.userId}`,
-      relationship: `belongsTo`,
-    },
     trading_real_raw: {
       sql: `${CUBE}.user_id = ${trading_real_raw.user_id}`,
       relationship: `belongsTo`,

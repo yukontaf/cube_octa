@@ -1,7 +1,7 @@
-{% set model = dbt_model('event_stream') %}
+
  
 cubes:
-  - {{ model.as_cube() }}
+  - {{ dbt.model('event_stream').as_cube() }}
  
     dimensions:
       {{ model.as_dimensions() }}

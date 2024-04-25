@@ -1,4 +1,4 @@
-{% set model = dbt_model('appsflyer_uninstall_events_report') %}
+{% set model = dbt.model('appsflyer_uninstall_events_report') %}
  
 cubes:
   - {{ model.as_cube() }}

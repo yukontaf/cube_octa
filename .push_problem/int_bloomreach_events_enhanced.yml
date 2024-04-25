@@ -1,7 +1,8 @@
 {% set model = dbt_model('int_bloomreach_events_enhanced') %}
  
 cubes:
-  - {{ model.as_cube() }}
+  - name: int_bloomreach_events_enhanced
+    sql: dev_gsokolov.int_bloomreach_events_enhanced
 
     joins:
     - name: int_af_id
@@ -44,7 +45,6 @@ cubes:
 
         
     dimensions:
-      {{ model.as_dimensions() }}
       - name: user_id
         sql: user_id
         primary_key: true

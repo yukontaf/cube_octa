@@ -14,10 +14,6 @@ cube(`users`, {
       relationship: `one_to_many`,
       sql: `CAST(${CUBE}.user_id AS INT) = CAST(${bloomreach_events}.user_id AS INT)`,
     },
-    deposits_funnel: {
-      relationship: `one_to_many`,
-      sql: `${CUBE}.user_id = ${deposits_funnel}.user_id`,
-    },
     ab_users_reactivation: {
       relationship: `one_to_one`,
       sql: `${CUBE}.user_id = ${ab_users_reactivation}.user_id`,

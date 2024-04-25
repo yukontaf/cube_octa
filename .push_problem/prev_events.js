@@ -39,7 +39,7 @@ cube(`prev_events`, {
     },
     //   avg_delta: {
     //   type: `avg`,
-    //   sql: `${avg_user_delta}`
+    //   sql: `${timedelta}`
     // },
   },
 

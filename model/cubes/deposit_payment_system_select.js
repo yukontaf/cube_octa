@@ -17,11 +17,7 @@ cube(`deposit_payment_system_select`, {
     deposits_enhanced: {
       sql: `${CUBE}.user_id = ${deposits_enhanced}.user_id`,
       relationship: `hasMany`,
-    },
-    deposits_funnel: {
-      sql: `${CUBE}.user_id = ${deposits_funnel}.user_id`,
-      relationship: `hasMany`,
-    },
+    }
   },
 
   dimensions: {
