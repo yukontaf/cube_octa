@@ -46,9 +46,13 @@ cube(`int_pushes`, {
       sql: `event_order`,
       type: `number`,
     },
+    status: {
+      sql: `status`,
+      type: `string`,
+    },
     status_num: {
       sql: `CASE WHEN ${CUBE}.status='delivered' THEN 1 ELSE 0 END`,
-      type: `string`,
+      type: `number`,
     },
     action_type: {
       sql: `action_type`,
