@@ -57,7 +57,8 @@ cube(`UsersUninstalled`, {
     },
     countDistinct: {
       type: `count_distinct`,
-      drillMembers: [userId, pushTimestamp, uninstalledAt],
+      // drillMembers: [userId, pushTimestamp, uninstalledAt],
+      sql: `userId`,
     },
     // You can add more measures (aggregatable fields) here
   },
