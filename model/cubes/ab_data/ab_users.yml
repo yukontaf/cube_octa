@@ -1,0 +1,24 @@
+cubes:
+  - name: ab_users
+    sql: dev_gsokolov.ab_users
+
+    joins:
+      - name: int_bloomreach_events_enhanced
+        sql: ${ab_users}.user_id = ${int_bloomreach_events_enhanced}.user_id
+        relationship: one_to_many
+
+    dimensions:
+      - name: user_id
+        sql: user_id
+        type: number
+        primary_key: true
+      - name: variant
+        sql: variant
+        type: string
+      - name: timestamp
+        sql: timestamp
+        type: time
+
+    measures:
+      - name: count
+        type: count
