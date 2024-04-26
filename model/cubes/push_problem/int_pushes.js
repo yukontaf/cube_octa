@@ -1,37 +1,34 @@
 cube(`int_pushes`, {
-  sql: `SELECT * FROM dev_gsokolov.int_pushes`,
+  sql: `SELECT * FROM dev_gsokolov.int_bloomreach_events_enhanced where 
+  safe_cast(user_id as int64) in (select user_id from ${eligible_users.sql()})
+  and action_type = 'mobile notification' and date(timestamp) between '2024-01-01' and date(current_timestamp)
+  and status in ('delivered', 'failed')`,
 
   measures: {
     count: {
-      type: `count`
+      type: `count`,
+      drillMembers: [userId]
     },
     count_distinct: {
       type: `count_distinct`,
       sql: `user_id`
-    }
+    },
+    rolling_count: {
+      sql: `case when ${CUBE}.status='delivered' then 1 else 0 end`,
+      type: `sum`,
+      rolling_window: {
+        trailing: `7 day`,
+      },
+    },
   },
 
   dimensions: {
-    user_id: {
+    userId: {
       sql: `user_id`,
       type: `number`,
       primaryKey: true,
-      public: true,
-      shown: true
+      public: true
     },
-    has_uninstall: {
-      sql: `CASE WHEN uninstall_time is not null then True else False end`,
-      type: `boolean`
-    },
-    appsflyer_id: {
-      sql: `appsflyer_id`,
-      type: `string`
-    },
-    uninstall_time: {
-      sql: `uninstall_time`,
-      type: `time`
-    },
-
     status: {
       sql: `status`,
       type: `string`
@@ -43,10 +40,6 @@ cube(`int_pushes`, {
     timestamp: {
       sql: `timestamp`,
       type: `time`
-    },
-    token: {
-      sql: `token`,
-      type: `string`
     }
   }
 });
