@@ -1,3 +1,6 @@
 .cubestore
 node_modules
 .*
+cube.js
+.env
+scratch.ipynb

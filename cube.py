@@ -1,4 +1,3 @@
-# Databricks notebook source
 from cube import config
 
 @config('semantic_layer_sync')
