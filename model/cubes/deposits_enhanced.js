@@ -1,5 +1,8 @@
 cube(`deposits_enhanced`, {
-  sql: `SELECT * FROM wh_raw.deposits_enhanced WHERE created_dt >= '2024-01-01'`,
+  sql: `
+  SELECT * FROM wh_raw.deposits_enhanced 
+  WHERE created_dt >= '2024-01-01'
+  `,
 
   joins: {
     payment_system_select: {

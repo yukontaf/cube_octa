@@ -11,7 +11,7 @@ cube(`payment_system_select`, {
   joins: {
     deposits_enhanced: {
       relationship: "belongsTo",
-      sql: `${CUBE}.user_id = CAST(${DepositsEnhanced}.user_id AS STRING)`,
+      sql: `${CUBE}.user_id = CAST(${deposits_enhanced}.user_id AS STRING)`,
     },
   },
   dimensions: {
@@ -24,7 +24,7 @@ cube(`payment_system_select`, {
       sql: `registered_dt`,
       type: `time`,
     },
-    paymentSystemName: {
+    payment_system_name: {
       sql: `payment_system_name`,
       type: `string`,
     },
@@ -32,28 +32,27 @@ cube(`payment_system_select`, {
       sql: `time`,
       type: `time`,
     },
-    eventNumber: {
+    event_number: {
       sql: `event_number`,
       type: `number`,
     },
-    regWeekStart: {
+    reg_week_start: {
       sql: `DATE_TRUNC(registered_dt, WEEK(MONDAY))`,
       type: `time`,
     },
-    daysAfterReg: {
+    days_after_reg: {
       sql: `TIMESTAMP_DIFF(time, registered_dt, SECOND) / (60 * 60 * 24)`,
       type: `number`,
     },
-    daysSinceRegistration: { sql: `daysSinceRegistration`, type: `number` },
   },
 
   measures: {
-    countDistinct: {
+    count_distinct: {
       sql: `user_id`,
       type: `countDistinct`,
       filters: [{ sql: `${CUBE}.time >= '2024-01-01'` }],
     },
-    targetConversionsCount: {
+    target_conversions_count: {
       type: `count`,
       rollingWindow: {
         trailing: `14 day`,
@@ -65,10 +64,10 @@ cube(`payment_system_select`, {
 
   segments: {
     targetQ2: {
-      sql: `${CUBE}.event_number = 1 AND ${daysAfterReg} > 3 AND ${CUBE}.user_id is not NULL`,
+      sql: `${CUBE}.event_number = 1 AND ${days_after_reg} > 3 AND ${CUBE}.user_id is not NULL`,
     },
-    notDep: {
-      sql: `${daysAfterReg} > 3`,
+    not_dep_3d: {
+      sql: `${days_after_reg} > 3`,
     },
   },
 });

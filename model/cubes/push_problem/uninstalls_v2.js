@@ -1,4 +1,4 @@
-cube(`UsersUninstalled`, {
+cube(`users_uninstalls`, {
   sql: `WITH
             u AS (
                 SELECT DISTINCT user_id

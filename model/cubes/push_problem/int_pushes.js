@@ -1,33 +1,40 @@
 cube(`int_pushes`, {
   sql: `
-    SELECT
-      *,
-      CASE
-        WHEN event_order = 1 THEN timestamp
-        ELSE NULL
-      END AS first_event
-    FROM (
+  SELECT
+      *
+      , CASE
+          WHEN push_num = 1 THEN timestamp
+      END AS first_push
+  FROM (
       SELECT
-        *,
-        ROW_NUMBER() OVER (
-          PARTITION BY user_id
-          ORDER BY timestamp
-        ) AS event_order
-      FROM dev_gsokolov.int_bloomreach_events_enhanced
-      WHERE safe_cast(user_id as int64) IN (
-        SELECT user_id
-        FROM ${eligible_users.sql()}
-      )
-      AND action_type = 'mobile notification'
-      AND date(timestamp) BETWEEN '2024-01-01' AND date(current_timestamp)
-      AND status IN ('delivered', 'failed')
-    )
+          internal_customer_id
+          , user_id
+          , timestamp
+          , campaign_id
+          , action_id
+          , properties.campaign_name
+          , properties.status
+          , properties.error
+          , properties.action_name
+          , ROW_NUMBER() OVER (
+              PARTITION BY user_id
+              ORDER BY timestamp
+          ) AS push_num
+      FROM bloomreach_raw.campaign
+      WHERE SAFE_CAST(user_id AS INT64) IN (
+              SELECT user_id
+              FROM ${eligible_users.sql()}
+          )
+          AND properties.action_type = 'mobile notification'
+          AND DATE(timestamp) BETWEEN '2024-01-01' AND DATE(CURRENT_TIMESTAMP)
+          AND properties.status IN ('delivered', 'failed')
+  )
   `,
 
   measures: {
     count: {
       type: `count`,
-      drillMembers: [userId],
+      drillMembers: [user_id],
     },
     count_distinct: {
       type: `count_distinct`,
@@ -36,14 +43,18 @@ cube(`int_pushes`, {
   },
 
   dimensions: {
-    userId: {
+    user_id: {
       sql: `user_id`,
       type: `number`,
       primaryKey: true,
       public: true,
     },
-    eventOrder: {
-      sql: `event_order`,
+    campaign_name: {
+      sql: `campaign_name`,
+      type: `string`,
+    },
+    push_num: {
+      sql: `push_num`,
       type: `number`,
     },
     status: {
@@ -54,8 +65,8 @@ cube(`int_pushes`, {
       sql: `CASE WHEN ${CUBE}.status='delivered' THEN 1 ELSE 0 END`,
       type: `number`,
     },
-    action_type: {
-      sql: `action_type`,
+    action_name: {
+      sql: `action_name`,
       type: `string`,
     },
     timestamp: {

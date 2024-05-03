@@ -1,12 +1,12 @@
 cube(`deposit_payment_system_select`, {
   sql: `
     SELECT
-      p.*,
-      ROW_NUMBER() OVER (PARTITION BY p.user_id ORDER BY time ASC) AS event_number,
-      u.registered_dt
-    FROM amplitude.events_octa_raw_deposit_payment_system_select p
-    LEFT JOIN wh_raw.users u ON p.user_id = u.user_id
-    where p.time >= '2024-01-01'
+      p.*
+      , u.registered_dt
+      , ROW_NUMBER() OVER (PARTITION BY p.user_id ORDER BY time ASC) AS event_number
+  FROM amplitude.events_octa_raw_deposit_payment_system_select AS p
+      LEFT JOIN wh_raw.users AS u ON p.user_id = u.user_id
+  WHERE p.time >= '2024-01-01'
   `,
 
   joins: {

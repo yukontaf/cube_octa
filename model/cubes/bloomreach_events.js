@@ -1,10 +1,23 @@
 cube("bloomreach_events", {
   sql: `
-        SELECT
-            *,
-            ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY timestamp ASC) AS event_number
-        FROM bloomreach_raw.campaign
-        where timestamp >= '2024-01-01'
+    SELECT
+        internal_customer_id
+        , user_id
+        , timestamp
+        , campaign_id
+        , action_id
+        , type
+        , properties.campaign_name
+        , properties.status
+        , properties.error
+        , properties.action_name
+        , properties.action_type
+        , properties.variant
+        , properties.platform
+        , properties.action_label
+        , ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY timestamp ASC) AS event_number
+    FROM bloomreach_raw.campaign
+    WHERE timestamp >= '2024-01-01'
     `,
 
   dimensions: {
@@ -35,35 +48,31 @@ cube("bloomreach_events", {
       type: "number",
     },
     variant: {
-      sql: `${CUBE}.properties.variant`,
+      sql: `variant`,
       type: "string",
     },
     action_type: {
-      sql: `${CUBE}.properties.action_type`,
+      sql: `action_type`,
       type: "string",
-    },
-    ingest_timestamp: {
-      sql: "ingest_timestamp",
-      type: "time",
     },
     timestamp: {
       sql: "timestamp",
       type: "time",
     },
     status: {
-      sql: `${CUBE}.properties.status`,
+      sql: `status`,
       type: "string",
     },
     action_name: {
-      sql: `${CUBE}.properties.action_name`,
+      sql: `action_name`,
       type: "string",
     },
     action_label: {
-      sql: `${CUBE}.properties.action_label`,
+      sql: `action_label`,
       type: "string",
     },
     platform: {
-      sql: `${CUBE}.properties.platform`,
+      sql: `platform`,
       type: "string",
     },
   },
@@ -85,16 +94,16 @@ cube("bloomreach_events", {
 
   segments: {
     ab_users: {
-      sql: `${CUBE}.user_id is not NULL AND ${CUBE}.properties.variant is not NULL`,
+      sql: `${CUBE}.user_id is not NULL AND ${CUBE}.variant is not NULL`,
     },
     split_users: {
-      sql: `${CUBE}.properties.action_type = 'split'`,
+      sql: `${CUBE}.action_type = 'split'`,
     },
     delivered_events: {
-      sql: `${CUBE}.properties.status = 'delivered'`,
+      sql: `${CUBE}.status = 'delivered'`,
     },
     pushes: {
-      sql: `${CUBE}.properties.action_type = 'mobile notification'`,
+      sql: `${CUBE}.action_type = 'mobile notification'`,
     },
   },
 });

@@ -1,5 +1,8 @@
 cube(`uninstalls`, {
-    sql: `SELECT * FROM dev_gsokolov.appsflyer_uninstall_events_report`,
+  sql: `
+    SELECT * FROM wh_raw.appsflyer_uninstall_events_report
+    WHERE install_time >= '2024-01-01'
+    `,
   
     measures: {
       count: {

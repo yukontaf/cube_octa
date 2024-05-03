@@ -1,6 +1,10 @@
 cube("trading_real_raw", {
-  sql: `SELECT * FROM wh_raw.trading_real_raw
-    where close_time_dt >= '2024-01-01'`,
+  sql: `
+  SELECT * FROM wh_raw.trading_real_raw
+  WHERE close_time_dt >= '2024-01-01'
+      AND open_time_dt >= '2024-01-01'
+      AND cmd <= 2
+      `,
 
   dimensions: {
     user_id: {
