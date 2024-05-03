@@ -2,7 +2,7 @@ cube("bloomreach_events", {
   sql: `
     SELECT
         internal_customer_id
-        , user_id
+        , SAFE_CAST(user_id AS INT64) as user_id
         , timestamp
         , campaign_id
         , action_id

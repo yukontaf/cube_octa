@@ -13,6 +13,10 @@ cube(`payment_system_select`, {
       relationship: "belongsTo",
       sql: `${CUBE}.user_id = CAST(${deposits_enhanced}.user_id AS STRING)`,
     },
+    users: {
+      sql: `${CUBE}.user_id = ${users}.user_id`,
+      relationship: `belongsTo`,
+    },
   },
   dimensions: {
     user_id: {
@@ -20,7 +24,7 @@ cube(`payment_system_select`, {
       type: `number`,
       primaryKey: true,
     },
-    registeredDt: {
+    registered_dt: {
       sql: `registered_dt`,
       type: `time`,
     },
