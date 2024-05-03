@@ -1,6 +1,9 @@
 .cubestore
-node_modules
-.*
+node_modules/
 cube.js
 .env
 scratch.ipynb
+docker-compose.yml
+Dockerfile
+package.json
+.*/
