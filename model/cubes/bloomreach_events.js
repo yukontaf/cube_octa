@@ -14,7 +14,6 @@ cube("bloomreach_events", {
         , properties.action_type
         , properties.variant
         , properties.platform
-        , properties.action_label
         , ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY timestamp ASC) AS event_number
     FROM bloomreach_raw.campaign
     WHERE timestamp >= '2024-01-01'
@@ -65,10 +64,6 @@ cube("bloomreach_events", {
     },
     action_name: {
       sql: `action_name`,
-      type: "string",
-    },
-    action_label: {
-      sql: `action_label`,
       type: "string",
     },
     platform: {

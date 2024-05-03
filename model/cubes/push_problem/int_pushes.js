@@ -3,40 +3,27 @@ cube(`int_pushes`, {
   SELECT
       *
       , CASE
-          WHEN push_num = 1 THEN timestamp
+          WHEN event_number = 1 THEN timestamp
       END AS first_push
   FROM (
-      SELECT
-          internal_customer_id
-          , SAFE_CAST(user_id AS INT64) as user_id
-          , timestamp
-          , campaign_id
-          , action_id
-          , properties.campaign_name
-          , properties.status
-          , properties.error
-          , properties.action_name
-          , ROW_NUMBER() OVER (
-              PARTITION BY user_id
-              ORDER BY timestamp
-          ) AS push_num
-      FROM bloomreach_raw.campaign
+      SELECT *
+      FROM ${bloomreach_events.sql()}
       WHERE SAFE_CAST(user_id AS INT64) IN (
               SELECT user_id
               FROM ${eligible_users.sql()}
           )
-          AND properties.action_type = 'mobile notification'
+          AND action_type = 'mobile notification'
           AND DATE(timestamp) BETWEEN '2024-01-01' AND DATE(CURRENT_TIMESTAMP)
-          AND properties.status IN ('delivered', 'failed')
+          AND status IN ('delivered', 'failed')
   )
   `,
 
   measures: {
-    count_users: {
+    count_user_id: {
       type: `count`,
       sql: `user_id`,
     },
-    count_distinct_users: {
+    count_distinct_user_id: {
       type: `count_distinct`,
       sql: `user_id`,
     },
