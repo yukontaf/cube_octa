@@ -29,7 +29,7 @@ SELECT * FROM b
   measures: {
     count: {
       type: `count`,
-      drillMembers: [userId],
+      drillMembers: [user_id],
     },
     count_distinct: {
       type: `count_distinct`,
@@ -42,7 +42,7 @@ SELECT * FROM b
       sql: `user_id`,
       type: `string`,
       primaryKey: true,
-      puclic: true,
+      public: true,
     },
   },
 });

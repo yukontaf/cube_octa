@@ -53,18 +53,18 @@ cube(`users_uninstalls`, {
   measures: {
     totalCount: {
       type: `count`,
-      drillMembers: [userId, pushTimestamp, uninstalledAt],
+      drillMembers: [user_id, pushTimestamp, uninstalledAt],
     },
     countDistinct: {
       type: `count_distinct`,
-      // drillMembers: [userId, pushTimestamp, uninstalledAt],
-      sql: `userId`,
+      // drillMembers: [user_id, pushTimestamp, uninstalledAt],
+      sql: `user_id`,
     },
     // You can add more measures (aggregatable fields) here
   },
 
   dimensions: {
-    userId: {
+    user_id: {
       sql: `user_id`,
       type: `number`,
       primaryKey: true,
