@@ -32,11 +32,11 @@ cube(`int_pushes`, {
   `,
 
   measures: {
-    count: {
+    count_users: {
       type: `count`,
-      drillMembers: [user_id],
+      sql: `user_id`,
     },
-    count_distinct: {
+    count_distinct_users: {
       type: `count_distinct`,
       sql: `user_id`,
     },

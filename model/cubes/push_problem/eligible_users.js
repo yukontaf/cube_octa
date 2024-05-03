@@ -1,5 +1,5 @@
 cube(`eligible_users`, {
-    sql: `
+  sql: `
     WITH
     u AS (
         SELECT DISTINCT user_id
@@ -18,30 +18,31 @@ cube(`eligible_users`, {
 
 SELECT * FROM b
     `,
-  
-    joins: {
-      uninstalls: {
-        relationship: `one_to_many`,
-        sql: `${CUBE}.user_id = ${uninstalls}.user_id`
-      },
+
+  joins: {
+    uninstalls: {
+      relationship: `one_to_many`,
+      sql: `${CUBE}.user_id = ${uninstalls}.user_id`,
+    },
   },
-  
-    measures: {
-      count: {
-        type: `count`,
-        drillMembers: [userId]
-      },
+
+  measures: {
+    count: {
+      type: `count`,
+      drillMembers: [userId],
+    },
     count_distinct: {
       type: `count_distinct`,
-      sql: `user_id`
-      }
+      sql: `user_id`,
     },
-  
-    dimensions: {
-      userId: {
-        sql: `user_id`,
-        type: `string`,
-        primaryKey: true
-      }
-    }
-  });
+  },
+
+  dimensions: {
+    user_id: {
+      sql: `user_id`,
+      type: `string`,
+      primaryKey: true,
+      puclic: true,
+    },
+  },
+});

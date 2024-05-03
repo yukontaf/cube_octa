@@ -32,7 +32,7 @@ cube("bloomreach_events", {
     user_id: {
       sql: "user_id",
       type: "number",
-      shown: true,
+      puclic: true,
       primaryKey: true,
     },
     internal_customer_id: {
