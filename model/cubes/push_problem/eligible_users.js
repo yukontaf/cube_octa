@@ -19,12 +19,7 @@ cube(`eligible_users`, {
 SELECT * FROM b
     `,
 
-  joins: {
-    uninstalls: {
-      relationship: `one_to_many`,
-      sql: `${CUBE}.user_id = ${uninstalls}.user_id`,
-    },
-  },
+  joins: {},
 
   measures: {
     count: {
