@@ -55,6 +55,10 @@ cube(`int_pushes`, {
       sql: `action_name`,
       type: `string`,
     },
+    action_id: {
+      sql: `action_id`,
+      type: `number`,
+    },
     timestamp: {
       sql: `timestamp`,
       type: `time`,
