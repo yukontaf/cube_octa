@@ -14,3 +14,4 @@ def semantic_layer_sync(ctx: dict) -> list[dict]:
       }
     }
   ]
+  
