@@ -40,7 +40,7 @@ cube(`int_pushes`, {
       type: `string`,
     },
     push_num: {
-      sql: `push_num`,
+      sql: `event_num`,
       type: `number`,
     },
     status: {
