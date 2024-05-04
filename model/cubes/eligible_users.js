@@ -37,7 +37,6 @@ SELECT * FROM b
       sql: `user_id`,
       type: `string`,
       primaryKey: true,
-      public: true,
     },
   },
 });

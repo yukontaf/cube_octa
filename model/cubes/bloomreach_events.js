@@ -31,7 +31,6 @@ cube("bloomreach_events", {
     user_id: {
       sql: "user_id",
       type: "number",
-      public: true,
       primaryKey: true,
     },
     internal_customer_id: {

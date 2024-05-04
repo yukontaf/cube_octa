@@ -34,7 +34,6 @@ cube(`int_pushes`, {
       sql: `user_id`,
       type: `number`,
       primaryKey: true,
-      public: true,
     },
     campaign_name: {
       sql: `campaign_name`,
