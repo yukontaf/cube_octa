@@ -4,9 +4,9 @@ module.exports = {
       type: "preset",
       name: "Preset Sync",
       config: {
-        database: "Cube Cloud: cube_octa",
-        api_token: "f54ffebf-41bb-426b-906b-c6330ac66694",
-        api_secret: "952ef86a3b549084a637831c2d3612e134ce0275260dfd7c9fcf99cecf6ea897",
+        database: "Cube Cloud: octafx",
+        api_token: "6ee43488-d37b-4fb0-af55-5d4b1d12b217",
+        api_secret: "63bfc02a287989ce60a5bc481c6074ccea41c6a5f10d1be910c0822770eb4ae0",
         workspace_url: "20572de6.us1a.app.preset.io"
       }
     }
