@@ -28,6 +28,7 @@ cube(`int_pushes`, {
       type: `count_distinct`,
       sql: `user_id`,
     },
+
   },
 
   dimensions: {
