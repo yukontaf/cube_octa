@@ -39,6 +39,10 @@ cube(`int_pushes`, {
       sql: `campaign_name`,
       type: `string`,
     },
+    first_push: {
+      sql: `first_push`,
+      type: `time`,
+    },
     push_num: {
       sql: `event_number`,
       type: `number`,
