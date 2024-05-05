@@ -59,6 +59,10 @@ cube(`int_pushes`, {
       type: `number`,
       primaryKey: true,
     },
+    event_id: {
+      sql: `event_id`,
+      type: `string`,
+    },
     campaign_id: {
       sql: `campaign_id`,
       type: `string`
