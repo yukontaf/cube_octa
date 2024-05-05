@@ -1,24 +1,8 @@
 cube("bloomreach_events", {
   sql: `
     SELECT
-        internal_customer_id
-        , SAFE_CAST(user_id AS INT64) as user_id
-        , timestamp
-        , campaign_id
-        , action_id
-        , type
-        , properties.campaign_name
-        , properties.status
-        , properties.error
-        , properties.action_name
-        , properties.action_type
-        , properties.variant
-        , properties.platform
-        , ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY timestamp ASC) AS event_number
-        , ROW_NUMBER() OVER (PARTITION BY user_id, CONCAT(campaign_id, '_', CAST(action_id AS STRING)) ORDER BY timestamp ASC) AS distinct_event_number
-        ,  CONCAT(campaign_id, '_', CAST(action_id AS STRING)) AS event_id
-    FROM bloomreach_raw.campaign
-    WHERE timestamp >= '2024-01-01'
+        *
+      from dev_gsokolov.stg_bloomreach_events
     `,
 
   dimensions: {
