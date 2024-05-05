@@ -15,6 +15,7 @@ cube("bloomreach_events", {
         , properties.variant
         , properties.platform
         , ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY timestamp ASC) AS event_number
+        ,  CONCAT(campaign_id, '_', CAST(action_id AS STRING)) AS event_id
     FROM bloomreach_raw.campaign
     WHERE timestamp >= '2024-01-01'
     `,
