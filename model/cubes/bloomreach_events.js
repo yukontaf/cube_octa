@@ -78,6 +78,11 @@ cube("bloomreach_events", {
       type: "count",
       filters: [{ sql: `${CUBE}.timestamp >= '2024-01-01'` }],
     },
+    count_distinct_user_id: {
+      type: "count_distinct",
+      // filters: [{ sql: `${CUBE}.timestamp >= '2024-01-01'` }],
+      sql: `user_id`
+    },
     countDistinctUsers: {
       sql: `${CUBE}.user_id`,
       type: "countDistinct",
