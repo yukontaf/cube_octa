@@ -5,7 +5,6 @@ cube(`int_pushes`, {
       , CASE
           WHEN event_number = 1 THEN timestamp
       END AS first_push
-      , ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY timestamp ASC) AS event_number
   FROM (
       SELECT *
       FROM ${bloomreach_events.sql()}
