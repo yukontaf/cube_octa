@@ -43,7 +43,7 @@ cube(`int_pushes`, {
       type: `count`,
     },
     avgTimeDelta: {
-      sql: `AVG(timedelta)`,
+      sql: `timedelta`,
       type: `avg`
     }
   },
