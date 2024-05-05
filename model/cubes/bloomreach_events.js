@@ -75,6 +75,18 @@ cube("bloomreach_events", {
       sql: `platform`,
       type: "string",
     },
+    time_to_delivered: {
+        sql: `CASE
+                WHEN ${CUBE}.status = 'sent'
+                THEN LEAD(${CUBE}.timestamp, 1) OVER (PARTITION BY ${CUBE}.user_id ORDER BY ${CUBE}.timestamp)
+                     - ${CUBE}.timestamp
+                WHEN ${CUBE}.status = 'delivered'
+                THEN ${CUBE}.timestamp 
+                     - LAG(${CUBE}.timestamp, 1) OVER (PARTITION BY ${CUBE}.user_id ORDER BY ${CUBE}.timestamp)
+                ELSE NULL
+             END`,
+        type: `time`
+    },
   },
 
   measures: {
