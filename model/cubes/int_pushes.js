@@ -5,6 +5,7 @@ cube(`int_pushes`, {
       , CASE
           WHEN event_number = 1 THEN timestamp
       END AS first_push
+      , ROW_NUMBER() OVER (PARTITION BY user_id, CONCAT(campaign_id, '_', CAST(action_id AS STRING)) ORDER BY timestamp ASC) AS distinct_push_number
   FROM (
       SELECT *
       FROM ${bloomreach_events.sql()}
@@ -45,6 +46,10 @@ cube(`int_pushes`, {
     },
     push_num: {
       sql: `event_number`,
+      type: `number`,
+    },
+    distinct_push_num: {
+      sql: `distinct_push_number`,
       type: `number`,
     },
     status: {
