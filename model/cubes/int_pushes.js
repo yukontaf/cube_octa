@@ -25,7 +25,7 @@ cube(`int_pushes`, {
         CASE WHEN event_number = 1 THEN timestamp END AS first_push
       FROM dev_gsokolov.stg_bloomreach_events
       WHERE SAFE_CAST(user_id AS INT64) IN (
-        SELECT user_id FROM eligible_users
+        SELECT user_id FROM ${eligible_users.sql()}
       )
       AND action_type = 'mobile notification'
       AND DATE(timestamp) BETWEEN '2024-01-01' AND CURRENT_DATE()
