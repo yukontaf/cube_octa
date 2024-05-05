@@ -23,7 +23,7 @@ cube(`int_pushes`, {
         status,
         ROW_NUMBER() OVER (PARTITION BY user_id, CONCAT(campaign_id, '_', CAST(action_id AS STRING)) ORDER BY timestamp) as event_number,
         CASE WHEN event_number = 1 THEN timestamp END AS first_push
-      FROM bloomreach_events
+      FROM dev_gsokolov.stg_bloomreach_events
       WHERE SAFE_CAST(user_id AS INT64) IN (
         SELECT user_id FROM eligible_users
       )
