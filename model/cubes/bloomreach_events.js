@@ -30,6 +30,10 @@ cube("bloomreach_events", {
       sql: "event_number",
       type: "number",
     },
+    distinct_event_number: {
+      sql: "distinct_event_number",
+      type: "number",
+    },
     user_id: {
       sql: "user_id",
       type: "number",
