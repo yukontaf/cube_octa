@@ -8,6 +8,7 @@ cube(`int_pushes`, {
       status,
       first_push,
       timestamp,
+      event_id,
       LEAD(timestamp) OVER (PARTITION BY user_id, campaign_id, action_id ORDER BY timestamp ASC) AS next_timestamp,
       CASE
         WHEN status = 'failed' AND LEAD(status) OVER (PARTITION BY user_id, campaign_id, action_id ORDER BY timestamp ASC) = 'delivered'
@@ -22,7 +23,8 @@ cube(`int_pushes`, {
         TIMESTAMP as timestamp,
         status,
         ROW_NUMBER() OVER (PARTITION BY user_id, CONCAT(campaign_id, '_', CAST(action_id AS STRING)) ORDER BY timestamp) as event_number,
-        CASE WHEN event_number = 1 THEN timestamp END AS first_push
+        CASE WHEN event_number = 1 THEN timestamp END AS first_push,
+        event_id
       FROM dev_gsokolov.stg_bloomreach_events
       WHERE SAFE_CAST(user_id AS INT64) IN (
         SELECT user_id FROM ${eligible_users.sql()}
@@ -40,6 +42,9 @@ cube(`int_pushes`, {
     },
     countFailed: {
       sql: `COUNT(DISTINCT CASE WHEN status = 'failed' THEN user_id ELSE NULL END)`,
+      type: `count`,
+    },
+    count: {
       type: `count`,
     },
     avgTimeDelta: {
