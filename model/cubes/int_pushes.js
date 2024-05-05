@@ -15,6 +15,11 @@ cube(`int_pushes`, {
     count: {
       type: `count`,
     },
+    count_distinct_user_id: {
+      type: "count_distinct",
+      // filters: [{ sql: `${CUBE}.timestamp >= '2024-01-01'` }],
+      sql: `user_id`
+    },
     avgTimeDelta: {
       sql: `timedelta`,
       type: `avg`
