@@ -10,11 +10,6 @@ cube(`int_pushes`, {
       timestamp,
       event_id,
       LEAD(timestamp) OVER (PARTITION BY user_id, campaign_id, action_id ORDER BY timestamp ASC) AS next_timestamp,
-      CASE
-        WHEN status = 'failed' AND LEAD(status) OVER (PARTITION BY user_id, campaign_id, action_id ORDER BY timestamp ASC) = 'delivered'
-        THEN TIMESTAMP_DIFF(LEAD(timestamp) OVER (PARTITION BY user_id, campaign_id, action_id ORDER BY timestamp ASC), timestamp, SECOND)
-        ELSE NULL
-      END AS timedelta
     FROM (
       SELECT
         user_id,
