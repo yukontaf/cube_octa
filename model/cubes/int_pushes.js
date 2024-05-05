@@ -72,5 +72,17 @@ cube(`int_pushes`, {
       sql: `timestamp`,
       type: `time`,
     },
+    time_delta: {
+        sql: `${CUBE}.timestamp - LAG(${CUBE}.timestamp, 1) OVER (PARTITION BY ${CUBE}.user_id ORDER BY ${CUBE}.timestamp)`,
+        type: `time`
+    },
+    delay: {
+        sql: `CASE
+                WHEN ${CUBE}.status = 'delivered' AND LAG(${CUBE}.status, 1) OVER (PARTITION BY ${CUBE}.user_id ORDER BY ${CUBE}.timestamp) = 'failed'
+                THEN ${CUBE}.timestamp - LAG(${CUBE}.timestamp, 1) OVER (PARTITION BY ${CUBE}.user_id ORDER BY ${CUBE}.timestamp)
+                ELSE NULL
+             END`,
+        type: `time`
+    },
   },
 });
