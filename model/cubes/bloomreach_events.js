@@ -23,6 +23,10 @@ cube("bloomreach_events", {
       type: "number",
       primaryKey: true,
     },
+    time_ro_delivered: {
+      sql: "time_to_delivered",
+      type: "number",
+    },
     internal_customer_id: {
       sql: "internal_customer_id",
       type: "string",
